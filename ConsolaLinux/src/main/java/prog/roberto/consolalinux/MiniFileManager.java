@@ -8,7 +8,6 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 
 /**
  *
@@ -34,20 +33,33 @@ public class MiniFileManager {
         if (direct.isDirectory()) {
             if (changeDir(direct.getAbsolutePath())) {
                 this.PWD = direct.getAbsolutePath();
+            } else {
+                throw new Exception("No se puede cambiar de directorio a un fichero o no existe el directorio");
+
             }
-        } else {
-            throw new Exception("No se puede cambiar de directorio a un fichero");
         }
 
     }
 
-    boolean changeDir(String dir) throws Exception {
+    public void mkdir(String ruta) {
+
+        File a = new File(getPWD() + "//" + ruta);
+
+        if (a.mkdir()) {
+            System.out.println("La carpeta se ha creado correctamente");
+        } else {
+            System.out.println(" La ruta es incorrecta, la carpeta ya existe o el usuario no tiene permisos de escritura");
+        }
+
+    }
+
+    boolean changeDir(String dir) {
         File a = new File(dir);
         if (a.exists()) {
             return true;
 
         } else {
-            throw new Exception("No se ha encontrado la ruta");
+            return false;
         }
     }
 
@@ -86,12 +98,17 @@ public class MiniFileManager {
             }
 
         } else {
-             for (File c : directorios) {
+            for (File c : directorios) {
                 System.out.println("El nombre es: " + c.getName());
             }
             for (File c : ficheros) {
                 System.out.println("El nombre es: " + c.getName());
             }
         }
+    }
+
+    public void mv(String origen, String destino) {
+        File origen2 = new File (origen, destino);
+
     }
 }

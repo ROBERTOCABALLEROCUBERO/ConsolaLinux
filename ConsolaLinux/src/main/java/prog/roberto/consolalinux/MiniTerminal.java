@@ -52,7 +52,8 @@ public class MiniTerminal {
                 try {
                     llamada.setPWD(comando[1]);
                 } catch (Exception e) {
-                    e.getMessage();
+                    System.out.println(e.getMessage());
+
                 }
             }
             if (comando[0].equalsIgnoreCase("ls")) {
@@ -62,13 +63,13 @@ public class MiniTerminal {
                 llamada.printList(true);
             }
             if (comando[0].equalsIgnoreCase("mkdir")) {
-
+                llamada.mkdir(comando[1]);
             }
             if (comando[0].equalsIgnoreCase("mv")) {
-
+                llamada.mv(comando[1], comando[2]);
             }
             if (comando[0].equalsIgnoreCase("help")) {
-
+                listacomandos();
             }
             if (comando[0].equalsIgnoreCase("exit")) {
                 salir = true;
