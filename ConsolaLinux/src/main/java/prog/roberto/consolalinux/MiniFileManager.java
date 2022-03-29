@@ -5,8 +5,10 @@
 package prog.roberto.consolalinux;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 
 /**
  *
@@ -71,19 +73,24 @@ public class MiniFileManager {
         if (info) {
 
             for (File c : directorios) {
+                SimpleDateFormat gmtDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 System.out.println("El nombre es: " + c.getName());
                 System.out.println("El tamaño es: " + c.length());
-                System.out.println("La ultima fecha de modificacion es: " + c.lastModified());
+                System.out.println("La ultima fecha de modificacion es: " + gmtDateFormat.format(c.lastModified()));
             }
             for (File c : ficheros) {
+                SimpleDateFormat gmtDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 System.out.println("El nombre es: " + c.getName());
                 System.out.println("El tamaño es: " + c.length());
-                System.out.println("La ultima fecha de modificacion es: " + c.lastModified());
+                System.out.println("La ultima fecha de modificacion es: " + gmtDateFormat.format(c.lastModified()));
             }
 
         } else {
-            for (File lista1 : lista) {
-                System.out.println("El nombre es: " + lista1.getName());
+             for (File c : directorios) {
+                System.out.println("El nombre es: " + c.getName());
+            }
+            for (File c : ficheros) {
+                System.out.println("El nombre es: " + c.getName());
             }
         }
     }
