@@ -130,6 +130,27 @@ public class MiniFileManager {
         long suma = 0;
         //Hago un if que lanza la excepcion en caso de que los dos sean falsos con el operador logico OR.
         if (infoabs.exists() || inforelativa.exists()) {
+             //Busco segun el objeto si es un directorio o no, pero diferencio entre ruta relativa y ruta absoluta, por lo que aunque sea 
+        //lo mismo cubro los casos en los que el usuario esta en un directorio concreto, pero quiere la informacion de otro con ruta absoluta o busca dentro de
+        //ese directorio con ruta relativa.
+            if (infoabs.isDirectory()) {
+                File[] arraytamano = infoabs.listFiles();
+                for (File c : arraytamano) {
+                    suma += c.length();
+                }
+                //Para sacar el length correcto calculo el tamaño de los ficheros y los voy sumando y almacenando en una variable.
+                megas = (suma / 1024) / 1024;
+                System.out.println("En bytes: " + suma + "\n" + "En MB: " + megas);
+            }
+            if (inforelativa.isDirectory()) {
+                File[] arraytamano = inforelativa.listFiles();
+                for (File c : arraytamano) {
+                    suma += c.length();
+                }
+                //Lo mismo, pero esto es para el caso de que sea relativo
+                megas = (suma / 1024) / 1024;
+                System.out.println("En bytes: " + suma + "\n" + "En MB: " + megas);
+            }
                 //Y otra vez la misma logica, pero con los ficheros el metodo length nos devuelve un valor exacto en bytes que
                 //podemos pasar a MB a traves de dos divisiones por 1024.
             if (infoabs.isFile()) {
