@@ -27,11 +27,12 @@ public class MiniTerminal {
                 + " Si tiene subcarpetas, las dejará intactas y mostrará un aviso al usuario.\n"
                 + " mv <FILE1> <FILE2>: Mueve o renombra ‘FILE1’ a ‘FILE2’.\n"
                 + " help: Muestra una breve ayuda con los comandos disponibles.\n"
+                + " info <ruta> : Muestra el tamano de la ruta \n"
                 + " exit: Termina el programa. \n");
 
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         // TODO code application logic here
         Scanner leer = new Scanner(System.in);
         MiniFileManager llamada = new MiniFileManager();
@@ -43,7 +44,6 @@ public class MiniTerminal {
             System.out.println("Introduce el comando");
             cmd = leer.nextLine();
             String[] comando = cmd.split(" ");
-            System.out.println(comando[0]);
 
             if (comando[0].equalsIgnoreCase("pwd")) {
                 System.out.println(llamada.getPWD());
@@ -53,7 +53,6 @@ public class MiniTerminal {
                     llamada.setPWD(comando[1]);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
-
                 }
             }
             if (comando[0].equalsIgnoreCase("ls")) {
@@ -70,6 +69,16 @@ public class MiniTerminal {
             }
             if (comando[0].equalsIgnoreCase("help")) {
                 listacomandos();
+            }
+            if (comando[0].equalsIgnoreCase("info")) {
+                //Agarro la excepcion en el menu e imprimo el mensaje del metodo info. 
+                try {
+                    llamada.info(comando[1]);
+                } catch (FileNotFoundException e) {
+
+                    System.out.println(e.getMessage());
+
+                }
             }
             if (comando[0].equalsIgnoreCase("exit")) {
                 salir = true;
