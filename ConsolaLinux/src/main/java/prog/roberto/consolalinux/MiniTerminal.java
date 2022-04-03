@@ -65,8 +65,14 @@ public class MiniTerminal {
                 llamada.mkdir(comando[1]);
             }
             if (comando[0].equalsIgnoreCase("mv")) {
+                try{
                 llamada.mv(comando[1], comando[2]);
-            }
+                }
+                catch (FileNotFoundException e){
+                    
+                    System.out.println(e.getMessage());
+                }
+                }
             if (comando[0].equalsIgnoreCase("help")) {
                 listacomandos();
             }

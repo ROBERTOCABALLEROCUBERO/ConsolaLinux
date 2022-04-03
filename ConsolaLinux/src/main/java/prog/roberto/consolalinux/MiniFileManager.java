@@ -106,14 +106,21 @@ public class MiniFileManager {
         }
     }
 
-    public void mv(String origen, String destino) {
+    public void mv(String origen, String destino) throws FileNotFoundException {
         File origen2 = new File(origen);
         File destino2 = new File(destino);
 
-        if (origen2.exists()) {
+        if (origen2.exists() && (destino2.exists())) {
+
+            if (origen2.getParent().equalsIgnoreCase(destino2.getParent())) {
+                destino2.renameTo(origen2);
+            } else {
+            
+                
+            }
 
         } else {
-
+            throw new FileNotFoundException("Directorio o fichero no encontrado");
         }
 
     }
@@ -130,9 +137,9 @@ public class MiniFileManager {
         long suma = 0;
         //Hago un if que lanza la excepcion en caso de que los dos sean falsos con el operador logico OR.
         if (infoabs.exists() || inforelativa.exists()) {
-             //Busco segun el objeto si es un directorio o no, pero diferencio entre ruta relativa y ruta absoluta, por lo que aunque sea 
-        //lo mismo cubro los casos en los que el usuario esta en un directorio concreto, pero quiere la informacion de otro con ruta absoluta o busca dentro de
-        //ese directorio con ruta relativa.
+            //Busco segun el objeto si es un directorio o no, pero diferencio entre ruta relativa y ruta absoluta, por lo que aunque sea 
+            //lo mismo cubro los casos en los que el usuario esta en un directorio concreto, pero quiere la informacion de otro con ruta absoluta o busca dentro de
+            //ese directorio con ruta relativa.
             if (infoabs.isDirectory()) {
                 File[] arraytamano = infoabs.listFiles();
                 for (File c : arraytamano) {
@@ -151,8 +158,8 @@ public class MiniFileManager {
                 megas = (suma / 1024) / 1024;
                 System.out.println("En bytes: " + suma + "\n" + "En MB: " + megas);
             }
-                //Y otra vez la misma logica, pero con los ficheros el metodo length nos devuelve un valor exacto en bytes que
-                //podemos pasar a MB a traves de dos divisiones por 1024.
+            //Y otra vez la misma logica, pero con los ficheros el metodo length nos devuelve un valor exacto en bytes que
+            //podemos pasar a MB a traves de dos divisiones por 1024.
             if (infoabs.isFile()) {
                 megas = (infoabs.length() / 1024) / 1024;
                 System.out.println("En bytes: " + infoabs.length() + "\n" + "En MB: " + megas);
