@@ -6,6 +6,9 @@ package prog.roberto.consolalinux;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,8 +33,14 @@ public class MiniFileManager {
     }
 
     public void setPWD(String PWD) throws Exception {
+        
         File direct = new File(PWD);
+        
         if (direct.isDirectory()) {
+            if (PWD == ".."){
+            this.PWD = direct.getAbsolutePath();
+            this.PWD = direct.getParent();
+            }
             if (changeDir(direct.getAbsolutePath())) {
                 this.PWD = direct.getAbsolutePath();
             } else {
@@ -106,7 +115,7 @@ public class MiniFileManager {
         }
     }
 
-    public void mv(String origen, String destino) throws FileNotFoundException {
+    public void mv(String origen, String destino) throws FileNotFoundException, IOException {
         File origen2 = new File(origen);
         File destino2 = new File(destino);
 
@@ -115,7 +124,7 @@ public class MiniFileManager {
             if (origen2.getParent().equalsIgnoreCase(destino2.getParent())) {
                 destino2.renameTo(origen2);
             } else {
-            
+            Files.move(origen2.toPath(), destino2.toPath(), StandardCopyOption.REPLACE_EXISTING);
                 
             }
 

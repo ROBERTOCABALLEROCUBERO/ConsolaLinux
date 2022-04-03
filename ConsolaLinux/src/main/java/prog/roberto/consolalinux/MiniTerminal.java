@@ -6,6 +6,7 @@ package prog.roberto.consolalinux;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -16,6 +17,7 @@ public class MiniTerminal {
 
     /**
      */
+//    Funcion que muestra el menu de forma inicial
     public static void listacomandos() {
         System.out.println("\npwd: Muestra cual es la carpeta actual.\n"
                 + " cd <DIR>: Cambia la carpeta actual a ‘DIR’. Con .. cambia a la carpeta superior.\n"
@@ -38,15 +40,18 @@ public class MiniTerminal {
         MiniFileManager llamada = new MiniFileManager();
         boolean salir = false;
         String cmd;
+        //Declaro unas funciones para llamar a los metodos.
 
         do {
             listacomandos();
             System.out.println("Introduce el comando");
             cmd = leer.nextLine();
             String[] comando = cmd.split(" ");
+            //Para introducir los comandos correctamente.
 
             if (comando[0].equalsIgnoreCase("pwd")) {
                 System.out.println(llamada.getPWD());
+                //Coge la ruta actual.
             }
             if (comando[0].equalsIgnoreCase("cd")) {
                 try {
@@ -54,6 +59,7 @@ public class MiniTerminal {
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
+                //cambiar el directorio y si es .. cambia al directorio padre.
             }
             if (comando[0].equalsIgnoreCase("ls")) {
                 llamada.printList(false);
@@ -71,6 +77,8 @@ public class MiniTerminal {
                 catch (FileNotFoundException e){
                     
                     System.out.println(e.getMessage());
+                } catch (IOException a){
+                    System.out.println("Ha habido un error con el comando move");
                 }
                 }
             if (comando[0].equalsIgnoreCase("help")) {
