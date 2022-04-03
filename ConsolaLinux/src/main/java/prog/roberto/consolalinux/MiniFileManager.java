@@ -23,7 +23,7 @@ public class MiniFileManager {
 
     public MiniFileManager() {
     }
-
+//Constructor vacio
     public MiniFileManager(String PWD) {
         this.PWD = PWD;
     }
@@ -31,15 +31,15 @@ public class MiniFileManager {
     public String getPWD() {
         return this.PWD;
     }
-
+//Devolver ruta
     public void setPWD(String PWD) throws Exception {
         
         File direct = new File(PWD);
         
         if (direct.isDirectory()) {
-            if (PWD == ".."){
-            this.PWD = direct.getAbsolutePath();
+            if ("..".equals(PWD)){
             this.PWD = direct.getParent();
+            
             }
             if (changeDir(direct.getAbsolutePath())) {
                 this.PWD = direct.getAbsolutePath();
@@ -47,6 +47,8 @@ public class MiniFileManager {
                 throw new Exception("No se puede cambiar de directorio a un fichero o no existe el directorio");
 
             }
+            //Creo un nuevo objeto file para asignarlo a la ruta en caso de Cd,
+            //En primera instancia el directorio es null.
         }
 
     }
@@ -60,7 +62,7 @@ public class MiniFileManager {
         } else {
             System.out.println(" La ruta es incorrecta, la carpeta ya existe o el usuario no tiene permisos de escritura");
         }
-
+//Creo un directorio en una ruta que ya existe.
     }
 
     boolean changeDir(String dir) {
@@ -71,8 +73,11 @@ public class MiniFileManager {
         } else {
             return false;
         }
+    //Devuelve true o false segun la existencia del archivo para luego lanzar una excepcion, este metodo comprueba su existencia
+    
     }
 
+    
     public void printList(boolean info) {
         File a = new File(getPWD());
         File[] lista = a.listFiles();
@@ -87,6 +92,7 @@ public class MiniFileManager {
                 ficheros.add(lista1);
             }
         }
+        //Creo dos arrayList y lo meto por directorios y ficheros para despues ordenarlos con el sort.
         Arrays.sort(directorios.toArray());
         Arrays.sort(ficheros.toArray());
 
@@ -113,6 +119,7 @@ public class MiniFileManager {
                 System.out.println("El nombre es: " + c.getName());
             }
         }
+    //Recorro en caso de que fuese un Directorio y si no como un fichero.
     }
 
     public void mv(String origen, String destino) throws FileNotFoundException, IOException {
@@ -131,7 +138,7 @@ public class MiniFileManager {
         } else {
             throw new FileNotFoundException("Directorio o fichero no encontrado");
         }
-
+//Uso Files.move para mover y si no para renombrar con el rename.
     }
 
     public void info(String ruta) throws Exception {

@@ -63,6 +63,7 @@ public class MiniTerminal {
             }
             if (comando[0].equalsIgnoreCase("ls")) {
                 llamada.printList(false);
+                //Imprimo las listas de archivos
             }
             if (comando[0].equalsIgnoreCase("ll")) {
                 llamada.printList(true);
@@ -70,6 +71,7 @@ public class MiniTerminal {
             if (comando[0].equalsIgnoreCase("mkdir")) {
                 llamada.mkdir(comando[1]);
             }
+            //Crear un directorio.
             if (comando[0].equalsIgnoreCase("mv")) {
                 try{
                 llamada.mv(comando[1], comando[2]);
@@ -81,9 +83,11 @@ public class MiniTerminal {
                     System.out.println("Ha habido un error con el comando move");
                 }
                 }
+            //Mover o renombrar.
             if (comando[0].equalsIgnoreCase("help")) {
                 listacomandos();
             }
+            //Imprime los comandos
             if (comando[0].equalsIgnoreCase("info")) {
                 //Agarro la excepcion en el menu e imprimo el mensaje del metodo info. 
                 try {
