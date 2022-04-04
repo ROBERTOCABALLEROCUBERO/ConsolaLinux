@@ -156,7 +156,7 @@ public class MiniFileManager {
         File origen2 = new File(origen);
         File destino2 = new File(destino);
 
-        if (origen2.exists() && (destino2.exists())) {
+        if (origen2.exists() || (destino2.exists())) {
 
             if (origen2.getParentFile().getAbsolutePath().equalsIgnoreCase(destino2.getParentFile().getAbsolutePath())) {
                 destino2.renameTo(origen2);}
