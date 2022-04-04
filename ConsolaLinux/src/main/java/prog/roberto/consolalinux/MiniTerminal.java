@@ -71,6 +71,13 @@ public class MiniTerminal {
             if (comando[0].equalsIgnoreCase("mkdir")) {
                 llamada.mkdir(comando[1]);
             }
+             if (comando[0].equalsIgnoreCase("rm")) {
+                try{
+                 llamada.rm(comando[1]);
+                } catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
+            }
             //Crear un directorio.
             if (comando[0].equalsIgnoreCase("mv")) {
                 try{
