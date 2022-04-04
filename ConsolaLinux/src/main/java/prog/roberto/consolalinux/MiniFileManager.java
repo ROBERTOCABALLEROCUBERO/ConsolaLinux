@@ -142,8 +142,6 @@ public class MiniFileManager {
             if (del.isFile()) {
                 del.delete();
 
-            } else {
-
             }
         } else {
 
