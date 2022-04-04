@@ -37,7 +37,7 @@ public class MiniFileManager {
     public void setPWD(String PWD) throws Exception {
 
         File direct = new File(PWD);
- File rutarelativa = new File(getPWD() + "//" + PWD);
+        File rutarelativa = new File(getPWD() + "//" + PWD);
         if (direct.isDirectory() || rutarelativa.isDirectory()) {
             if ("..".equals(PWD)) {
                 this.PWD = direct.getParentFile().getAbsolutePath();
@@ -125,13 +125,16 @@ public class MiniFileManager {
 
     public void rm(String borrar) throws FileNotFoundException {
         File del = new File(borrar);
-         File rutarelativa = new File(getPWD() + "//" + PWD);
+        File rutarelativa = new File(getPWD() + "//" + PWD);
 
         if (del.exists() || rutarelativa.exists()) {
             if (del.isDirectory()) {
                 File[] borro = del.listFiles();
                 for (File borro1 : borro) {
-                    borro1.delete();
+                    if (borro1.isFile()) {
+                        borro1.delete();
+                    }
+
                 }
                 del.delete();
 
@@ -140,7 +143,7 @@ public class MiniFileManager {
                 del.delete();
 
             } else {
-            
+
             }
         } else {
 
