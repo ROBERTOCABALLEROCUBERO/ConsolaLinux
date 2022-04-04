@@ -159,11 +159,11 @@ public class MiniFileManager {
         if (origen2.exists() && (destino2.exists())) {
 
             if (origen2.getParentFile().getAbsolutePath().equalsIgnoreCase(destino2.getParentFile().getAbsolutePath())) {
-                destino2.renameTo(origen2);
-            } else {
-                Files.move(origen2.toPath(), destino2.toPath(), StandardCopyOption.REPLACE_EXISTING);
-
-            }
+                destino2.renameTo(origen2);}
+//             else {
+//                Files.move(origen2.toPath(), destino2.toPath(), StandardCopyOption.REPLACE_EXISTING);
+//
+//            }
 
         } else {
             throw new FileNotFoundException("Directorio o fichero no encontrado");
