@@ -37,13 +37,13 @@ public class MiniFileManager {
     public void setPWD(String PWD) throws Exception {
 
         File direct = new File(PWD);
-
+ File rutarelativa = new File(getPWD() + "//" + PWD);
         if (direct.isDirectory()) {
             if ("..".equals(PWD)) {
-                this.PWD = direct.getParent();
+                this.PWD = direct.getParentFile().getAbsolutePath();
 
             }
-            if (changeDir(direct.getAbsolutePath())) {
+            if (changeDir(direct.getAbsolutePath()) || changeDir(rutarelativa.getAbsolutePath())) {
                 this.PWD = direct.getAbsolutePath();
             } else {
                 throw new Exception("No se puede cambiar de directorio a un fichero o no existe el directorio");
@@ -138,6 +138,8 @@ public class MiniFileManager {
             if (del.isFile()) {
                 del.delete();
 
+            } else {
+            
             }
         } else {
 
