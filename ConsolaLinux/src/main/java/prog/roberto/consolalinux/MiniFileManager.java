@@ -24,6 +24,7 @@ public class MiniFileManager {
     public MiniFileManager() {
     }
 //Constructor vacio
+
     public MiniFileManager(String PWD) {
         this.PWD = PWD;
     }
@@ -32,14 +33,15 @@ public class MiniFileManager {
         return this.PWD;
     }
 //Devolver ruta
+
     public void setPWD(String PWD) throws Exception {
-        
+
         File direct = new File(PWD);
-        
+
         if (direct.isDirectory()) {
-            if ("..".equals(PWD)){
-            this.PWD = direct.getParent();
-            
+            if ("..".equals(PWD)) {
+                this.PWD = direct.getParent();
+
             }
             if (changeDir(direct.getAbsolutePath())) {
                 this.PWD = direct.getAbsolutePath();
@@ -73,11 +75,10 @@ public class MiniFileManager {
         } else {
             return false;
         }
-    //Devuelve true o false segun la existencia del archivo para luego lanzar una excepcion, este metodo comprueba su existencia
-    
+        //Devuelve true o false segun la existencia del archivo para luego lanzar una excepcion, este metodo comprueba su existencia
+
     }
 
-    
     public void printList(boolean info) {
         File a = new File(getPWD());
         File[] lista = a.listFiles();
@@ -119,8 +120,33 @@ public class MiniFileManager {
                 System.out.println("El nombre es: " + c.getName());
             }
         }
-    //Recorro en caso de que fuese un Directorio y si no como un fichero.
+        //Recorro en caso de que fuese un Directorio y si no como un fichero.
     }
+
+    public void rm(String borrar) throws FileNotFoundException {
+        File del = new File(borrar);
+
+        if (del.exists()) {
+            if (del.isDirectory()) {
+                File[] borro = del.listFiles();
+                for (File borro1 : borro) {
+                    borro1.delete();
+                }
+                del.delete();
+
+            }
+            if (del.isFile()) {
+                del.delete();
+
+            }
+        } else {
+
+            throw new FileNotFoundException("Directorio o fichero no encontrado");
+        }
+
+    }
+
+    ;
 
     public void mv(String origen, String destino) throws FileNotFoundException, IOException {
         File origen2 = new File(origen);
@@ -131,8 +157,8 @@ public class MiniFileManager {
             if (origen2.getParent().equalsIgnoreCase(destino2.getParent())) {
                 destino2.renameTo(origen2);
             } else {
-            Files.move(origen2.toPath(), destino2.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                
+                Files.move(origen2.toPath(), destino2.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
             }
 
         } else {
