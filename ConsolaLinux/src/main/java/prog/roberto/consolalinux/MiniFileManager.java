@@ -36,13 +36,17 @@ public class MiniFileManager {
 
         File direct = new File(PWD);
         File rutarelativa = new File(getPWD() + "//" + PWD);
-        if (direct.isDirectory() || rutarelativa.isDirectory()) {
-            if ("..".equals(PWD)) {
-                this.PWD = direct.getParentFile().getAbsolutePath();
+        if ("..".equals(PWD)) {
+            File actual = new File(getPWD());
+            this.PWD = actual.getParentFile().getAbsolutePath();
 
-            }
+        }
+
+        if (direct.isDirectory() || rutarelativa.isDirectory()) {
+
             if (changeDir(direct.getAbsolutePath())) {
                 this.PWD = direct.getAbsolutePath();
+
                 if (changeDir(rutarelativa.getAbsolutePath())) {
 
                     this.PWD = rutarelativa.getAbsolutePath();
@@ -59,10 +63,10 @@ public class MiniFileManager {
     }
 
     public void mkdir(String ruta) {
-
+        File absoluta = new File(ruta);
         File a = new File(getPWD() + "//" + ruta);
 
-        if (a.mkdir()) {
+        if (a.mkdir() || absoluta.mkdir()) {
             System.out.println("La carpeta se ha creado correctamente");
         } else {
             System.out.println(" La ruta es incorrecta, la carpeta ya existe o el usuario no tiene permisos de escritura");
