@@ -50,16 +50,20 @@ public class MiniTerminal {
             //Para introducir los comandos correctamente.
 
             if (comando[0].equalsIgnoreCase("pwd")) {
-                System.out.println(llamada.getPWD());
+                System.out.println(llamada.getPWD2());
                 //Coge la ruta actual.
             }
-            if (comando[0].equalsIgnoreCase("cd")) {
+            if (comando[0].equalsIgnoreCase("cd") && !comando[1].equalsIgnoreCase("..")) {
                 try {
-                    llamada.setPWD(comando[1]);
+                    llamada.setPWD2(comando[1]);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
                 //cambiar el directorio y si es .. cambia al directorio padre.
+            }
+            if (comando[0].equalsIgnoreCase("cd") && comando[1].equalsIgnoreCase("..")){
+            llamada.cdParent();
+            
             }
             if (comando[0].equalsIgnoreCase("ls")) {
                 llamada.printList(false);

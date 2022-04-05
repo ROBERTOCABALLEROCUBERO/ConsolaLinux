@@ -17,54 +17,53 @@ import java.util.Arrays;
  */
 public class MiniFileManager {
 
-    private String PWD;
+    private String PWD2;
 
     public MiniFileManager() {
     }
 //Constructor vacio
 
     public MiniFileManager(String PWD) {
-        this.PWD = PWD;
+        this.PWD2 = PWD;
     }
 
-    public String getPWD() {
-        return this.PWD;
+    public String getPWD2() {
+        return this.PWD2;
     }
 //Devolver ruta
 
-    public void setPWD(String PWD) throws Exception {
+    public void setPWD2(String PWD) throws Exception {
 
         File direct = new File(PWD);
-        File rutarelativa = new File(getPWD() + "//" + PWD);
-        if ("..".equals(PWD)) {
-            File actual = new File(getPWD());
-            this.PWD = actual.getParentFile().getAbsolutePath();
-
-        }
+        File rutarelativa = new File(getPWD2() + "//" + PWD);
 
         if (direct.isDirectory() || rutarelativa.isDirectory()) {
-
+            
             if (changeDir(direct.getAbsolutePath())) {
-                this.PWD = direct.getAbsolutePath();
-
-                if (changeDir(rutarelativa.getAbsolutePath())) {
-
-                    this.PWD = rutarelativa.getAbsolutePath();
-                }
-
-            } else {
-                throw new Exception("No se puede cambiar de directorio a un fichero o no existe el directorio");
-
+                this.PWD2 = direct.getAbsolutePath();
             }
-            //Creo un nuevo objeto file para asignarlo a la ruta en caso de Cd,
-            //En primera instancia el directorio es null.
-        }
 
+            if (changeDir(rutarelativa.getAbsolutePath())) {
+
+                this.PWD2 = rutarelativa.getAbsolutePath();
+            }
+
+        } else {
+            throw new Exception("No se puede cambiar de directorio a un fichero o no existe el directorio");
+
+        }
     }
+
+    public void cdParent() throws Exception {
+        File actual = new File(getPWD2());
+        setPWD2(actual.getParent()); 
+    }
+    //Creo un nuevo objeto file para asignarlo a la ruta en caso de Cd,
+    //En primera instancia el directorio es null.
 
     public void mkdir(String ruta) {
         File absoluta = new File(ruta);
-        File a = new File(getPWD() + "//" + ruta);
+        File a = new File(getPWD2() + "//" + ruta);
 
         if (a.mkdir() || absoluta.mkdir()) {
             System.out.println("La carpeta se ha creado correctamente");
@@ -87,7 +86,7 @@ public class MiniFileManager {
     }
 
     public void printList(boolean info) {
-        File a = new File(getPWD());
+        File a = new File(getPWD2());
         File[] lista = a.listFiles();
         ArrayList<File> directorios = new ArrayList();
         ArrayList<File> ficheros = new ArrayList();
@@ -132,7 +131,7 @@ public class MiniFileManager {
 
     public void rm(String borrar) throws FileNotFoundException {
         File del = new File(borrar);
-        File rutarelativa = new File(getPWD() + "//" + borrar);
+        File rutarelativa = new File(getPWD2() + "//" + borrar);
 
         if (del.exists() || rutarelativa.exists()) {
             if (del.isDirectory()) {
@@ -178,7 +177,7 @@ public class MiniFileManager {
         File origen2 = new File(origen);
         File destino2 = new File(destino);
 
-        if (origen2.exists() || (destino2.exists())) {
+        if (origen2.exists()) {
 
             if (origen2.getParentFile().getAbsolutePath().equalsIgnoreCase(destino2.getParentFile().getAbsolutePath())) {
                 destino2.renameTo(origen2);
@@ -199,7 +198,7 @@ public class MiniFileManager {
         File infoabs = new File(ruta);
         //Para el relativo creo este objeto en caso de que se haya introducido algo, la ruta por defecto es null para facilitar el programa, aunque
         //se podria asignar un valor inicial que podría ser mas correcto, aunque en este caso he decidido iniciarlo a null y el getPWD+ruta inexistente.
-        File inforelativa = new File(getPWD() + "//" + ruta);
+        File inforelativa = new File(getPWD2() + "//" + ruta);
         //Creo dos objetos, una va a ser nulo siempre y otro existira  o ambos no van a existir.
         //Declaro dos variables para almacenar informacion Megas y suma.
         long megas;
