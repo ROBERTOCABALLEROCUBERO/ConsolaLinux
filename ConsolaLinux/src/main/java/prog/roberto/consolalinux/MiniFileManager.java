@@ -7,8 +7,6 @@ package prog.roberto.consolalinux;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,8 +41,13 @@ public class MiniFileManager {
                 this.PWD = direct.getParentFile().getAbsolutePath();
 
             }
-            if (changeDir(direct.getAbsolutePath()) || changeDir(rutarelativa.getAbsolutePath())) {
+            if (changeDir(direct.getAbsolutePath())) {
                 this.PWD = direct.getAbsolutePath();
+                if (changeDir(rutarelativa.getAbsolutePath())) {
+
+                    this.PWD = rutarelativa.getAbsolutePath();
+                }
+
             } else {
                 throw new Exception("No se puede cambiar de directorio a un fichero o no existe el directorio");
 
@@ -125,7 +128,7 @@ public class MiniFileManager {
 
     public void rm(String borrar) throws FileNotFoundException {
         File del = new File(borrar);
-        File rutarelativa = new File(getPWD() + "//" + PWD);
+        File rutarelativa = new File(getPWD() + "//" + borrar);
 
         if (del.exists() || rutarelativa.exists()) {
             if (del.isDirectory()) {
@@ -139,8 +142,23 @@ public class MiniFileManager {
                 del.delete();
 
             }
+            if (rutarelativa.isDirectory()) {
+                File[] borro = rutarelativa.listFiles();
+                for (File borro1 : borro) {
+                    if (borro1.isFile()) {
+                        borro1.delete();
+                    }
+
+                }
+                rutarelativa.delete();
+
+            }
             if (del.isFile()) {
                 del.delete();
+
+            }
+            if (rutarelativa.isFile()) {
+                rutarelativa.delete();
 
             }
         } else {
@@ -159,7 +177,8 @@ public class MiniFileManager {
         if (origen2.exists() || (destino2.exists())) {
 
             if (origen2.getParentFile().getAbsolutePath().equalsIgnoreCase(destino2.getParentFile().getAbsolutePath())) {
-                destino2.renameTo(origen2);}
+                destino2.renameTo(origen2);
+            }
 //             else {
 //                Files.move(origen2.toPath(), destino2.toPath(), StandardCopyOption.REPLACE_EXISTING);
 //
