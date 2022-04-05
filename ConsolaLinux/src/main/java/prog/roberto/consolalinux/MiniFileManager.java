@@ -7,6 +7,8 @@ package prog.roberto.consolalinux;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,7 +40,7 @@ public class MiniFileManager {
         File rutarelativa = new File(getPWD2() + "//" + PWD);
 
         if (direct.isDirectory() || rutarelativa.isDirectory()) {
-            
+
             if (changeDir(direct.getAbsolutePath())) {
                 this.PWD2 = direct.getAbsolutePath();
             }
@@ -56,7 +58,7 @@ public class MiniFileManager {
 
     public void cdParent() throws Exception {
         File actual = new File(getPWD2());
-        setPWD2(actual.getParent()); 
+        setPWD2(actual.getParent());
     }
     //Creo un nuevo objeto file para asignarlo a la ruta en caso de Cd,
     //En primera instancia el directorio es null.
@@ -171,21 +173,12 @@ public class MiniFileManager {
 
     }
 
-    ;
-
     public void mv(String origen, String destino) throws FileNotFoundException, IOException {
         File origen2 = new File(origen);
         File destino2 = new File(destino);
 
         if (origen2.exists()) {
-
-            if (origen2.getParentFile().getAbsolutePath().equalsIgnoreCase(destino2.getParentFile().getAbsolutePath())) {
-                destino2.renameTo(origen2);
-            }
-//             else {
-//                Files.move(origen2.toPath(), destino2.toPath(), StandardCopyOption.REPLACE_EXISTING);
-//
-//            }
+            origen2.renameTo(destino2);
 
         } else {
             throw new FileNotFoundException("Directorio o fichero no encontrado");
